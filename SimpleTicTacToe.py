@@ -87,6 +87,7 @@ def game(x,o):
     dash = "\n" + ("-----" + ("-" * max(len(x),len(o))))*3 + "\n"
     game_not_over = True
     while game_not_over:
+        print("\n"*2)
         print(f"  {no[0]}  |  {no[1]}  |  {no[2]}  {dash}  {no[3]}  |  {no[4]}  |  {no[5]}  {dash}  {no[6]}  |  {no[7]}  |  {no[8]}  ")
         ver=True
         game_not_over = check_game(turn)
