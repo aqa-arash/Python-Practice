@@ -4,7 +4,6 @@ black=colorama.Fore.BLACK+colorama.Back.WHITE
 red=colorama.Fore.RED+colorama.Back.WHITE
 def deck_creator():
     """Creats a full deck set"""
-
     global deckdic
     deckdic = {}
     #Cards come in 4 suits Spades, Hearts, Clubs and Dianonds
