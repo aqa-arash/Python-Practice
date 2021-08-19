@@ -141,3 +141,4 @@ if player.balance>1000:
     print(f"You made {player.balance-1000}, Congratulations {player.name}!")
 else:
     print(f"I hope you enjoyed the game, {player.name}!")
+input("  ")
