@@ -8,7 +8,7 @@ def deck_creator():
     global deckdic
     deckdic = {}
     #Cards come in 4 suits Spades, Hearts, Clubs and Dianonds
-    types= [black+"S",red+"H",black+"C",red+"D"]
+    types= ["S.","H.","C.","D."]
     for type in types:
         for i in range(2,11):
             deckdic[type+str(i)]= i
@@ -19,11 +19,17 @@ def deck_creator():
 
 def deck_shuffler():
     """recreates and Shuffles the deck"""
-    global deck, deckdic
+    global deck, deckdic,black,red,deckc
     deck=[]
+    deckcolor=[]
     for key in deckdic.keys():
+        if key[0] in ["S","C"]:
+            deckcolor.append(black+key)
+        else:
+            deckcolor.append(red+key)
         deck.append(key)
-        random.shuffle(deck)
+    deckc={deck[i]:deckcolor[i] for i in range(len(deck))}
+    random.shuffle(deck)
 
 class Bank:
     """Made to hold the bit and player money"""
@@ -79,9 +85,11 @@ def handcalc(hand):
     for i in hand:
         sum += deckdic[i]
     while sum >21:
-        for i in ["DAce","HAce","SAce","CAce"]:
+        for i in ["D.Ace","H.Ace","S.Ace","C.Ace"]:
             if i in hand:
                 sum-=10
+        else:
+            break
     return sum
 
 def AI(playerhand):
@@ -90,7 +98,10 @@ def AI(playerhand):
     target= handcalc(playerhand)
     while handcalc(tablehand)<target:
         tablehand.append(deck.pop())
-    print("House Hand \n"+ " - ".join(tablehand))
+    th=[]
+    for i in tablehand:
+        th.append(deckc[i])
+    print("House Hand \n"+ " - ".join(th))
     if handcalc(tablehand)>21:
         print("House goes Bust! You Win! ")
         player.deposit(pot.balance*2)
@@ -101,7 +112,7 @@ def AI(playerhand):
         print("You lose!")
 
 def game():
-    global player,pot,deck,tablehand
+    global player,pot,deck,tablehand,deckc
     deck_shuffler()
     playerhand=[]
     tablehand=[]
@@ -113,7 +124,10 @@ def game():
     hitornot=True
     while hitornot:
         playerhand.append(deck.pop())
-        print("Your hand \n" + " - ".join(playerhand))
+        ph=[]
+        for i in playerhand:
+            ph.append(deckc[i])
+        print("Your hand \n" + " - ".join(ph))
         if handcalc(playerhand) > 21:
             print("Bust")
             break;
@@ -141,4 +155,4 @@ if player.balance>1000:
     print(f"You made {player.balance-1000}, Congratulations {player.name}!")
 else:
     print(f"I hope you enjoyed the game, {player.name}!")
-input("  ")
+input(" ")
